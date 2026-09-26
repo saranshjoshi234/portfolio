@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Both themes are designed, not inverted. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --sunken: #edf1f6;
+  --ink: #142033;
+  --muted: #56657a;
+  --rule: #d9e0e8;
+  --accent: #2445b8;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6ecfb;
+  --focus: #9a5806; /* "current focus / learning" — amber, semantic only */
+  --focus-soft: #fbf1e2;
+  --handson: #0f766e;
+  --handson-soft: #e3f4f1;
+  color-scheme: light;
+}
+.dark {
+  --bg: #0d1520;
+  --surface: #131e2c;
+  --sunken: #0a111a;
+  --ink: #e7ecf3;
+  --muted: #9ba8b9;
+  --rule: #25344a;
+  --accent: #93a8ff;
+  --accent-ink: #0d1520;
+  --accent-soft: #1b2748;
+  --focus: #e8ab55;
+  --focus-soft: #2b2214;
+  --handson: #5fd0c2;
+  --handson-soft: #10292a;
+  color-scheme: dark;
+}
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-focus: var(--focus);
+  --color-focus-soft: var(--focus-soft);
+  --color-handson: var(--handson);
+  --color-handson-soft: var(--handson-soft);
+}
+
+@layer base {
+  /* Keep content clear of phone system bars (insets are 0 on desktop). */
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: 'kern', 'liga';
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* The one orchestrated moment: the career lineage draws in on load. */
+@keyframes node-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes edge-in {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.lineage-node {
+  animation: node-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.lineage-edge {
+  transform-origin: top;
+  animation: edge-in 240ms ease-out both;
+}
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.sheet-in { animation: sheet-in 220ms ease-out both; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fade 200ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

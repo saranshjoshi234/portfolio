@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Sitemap: [ADD CANONICAL URL]/sitemap.xml
