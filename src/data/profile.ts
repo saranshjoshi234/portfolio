@@ -28,7 +28,7 @@ export const profile = {
   // Put the latest resume at /public/resume.pdf (a placeholder file ships for now).
   resumeHref: '/resume.pdf',
 
-  siteUrl: '[ADD CANONICAL URL]',
+  siteUrl: 'https://saransh-joshi-portfolio.netlify.app',
 }
 
 export const summary = {
